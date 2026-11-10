@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * order class
+ */
 public class Order
 {
     //~ Fields ................................................................
