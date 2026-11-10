@@ -1,2 +1,80 @@
 # cs2114-project3-group40
+
 Small game where you serve customers as a barista.
+
+
+
+Reflection:
+
+
+
+• What changed from your specification? Classes, method signatures, where validation lives, test cases — what did the spec say, what did you build instead, and why?
+
+First the timing element was moved from the line class to the controller as it made more sense. Furthermore, the submit step method of line was not added as it was an overreach and can just be fulfilled by correctly interacting with the underlying customer's orders. Also, the line class was made into a modified queue class rather than using one as a field. 
+
+
+
+• Did the model really stand alone? Was there anything you had to move across the model/view line to make it run, or anything in the model that still knows about the view?
+
+
+
+
+
+• What happened to your unknowns? Of the things you listed in your scope as not knowing how to do, which did you figure out, and which are still open?
+
+We have figured out how to check whether steps are being correctly followed. This is handled in the order class. However, we still do not know the proper order of a latte.
+
+
+
+• What doesn't work yet? MVP features, bad-input cases, or tests that are missing or failing.
+
+
+
+
+
+
+
+Next steps:
+
+• What is left to finish the MVP? The remaining features and fixes, in the order you will do them.
+
+
+
+
+
+• Your change feature. Deliverable 4 requires you to add one non-trivial feature that was not in your MVP. Name it, then predict which classes it will touch (model, view, controller) and which ones your design says should not need to change. You will compare this prediction to what actually happened.
+
+
+
+
+
+• Which stretch goals will you attempt? The ones from your scope you are committing to, and the ones you are dropping.
+
+For the stretch goals we will attempt to modify the money system such that playing better rewards higher money. Such as fulfilling orders quickly and correctly. 
+
+
+
+• What new tests will you need? The methods and bad-input cases the added work must cover.
+
+Who does what? Which team member owns each remaining item.
+
+
+
+
+
+Attribution:
+
+| File | Who | How |
+
+| --- | --- | --- |
+
+| Line | Caleb | Wrote |
+
+| Order | Caleb | Wrote |
+
+| Player | Caleb | Wrote |
+
+| Customer | Caleb | Wrote |
+
+| README.md | Caleb | Contributed |
+

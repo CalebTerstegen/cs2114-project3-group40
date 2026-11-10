@@ -104,10 +104,10 @@ public class Line
      * @return returns the front customer
      */
     public Customer dequeue() {
-        Customer out;
         if(isEmpty()) {
             throw new NoSuchElementException("Empty line");
         }
+        Customer out;
         out = front.getData();
         front = front.next;
         if(front == null) {
@@ -121,7 +121,26 @@ public class Line
      * @return returns the front customer
      */
     public Customer peek() {
+        if(isEmpty()) {
+            throw new NoSuchElementException("Empty line");
+        }
         return front.getData();
+    }
+    
+    /**
+     * adds and observer
+     */
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+    
+    /**
+     * notifies the observers
+     */
+    private void notifyObservers() {
+        for(Observer o : observers) {
+            o.updateLine(front);
+        }
     }
 
 }

@@ -69,6 +69,9 @@ public class Player
         observers.add(o);
     }
     
+    /**
+     * notifies the observers
+     */
     private void notifyObservers() {
         for(Observer o : observers) {
             o.updatePlayer(strikes, money);
