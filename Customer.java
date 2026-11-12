@@ -15,10 +15,14 @@ public class Customer
      * @param order
      * @param timeLimit
      */
-    public Customer(String name, Order order, int timeLimit) {
-        if(name.equals("") || name == null || timeLimit <= 0) {
+    public Customer(String name, Order order, int timeLimit)
+    {
+        if (name == null || name.equals("") || order == null
+            || timeLimit <= 0)
+        {
             throw new IllegalArgumentException("Illegal argument");
         }
+
         this.name = name;
         this.order = order;
         this.timeLimit = timeLimit;

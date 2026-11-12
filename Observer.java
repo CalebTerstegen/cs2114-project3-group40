@@ -9,6 +9,11 @@
  */
 public interface Observer
 {
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     */
+    void onModelChanged();
     /**
      * Called when the customer line changes
      */

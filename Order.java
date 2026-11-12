@@ -65,14 +65,21 @@ public class Order
      *      the ingredient being attempted and compared against the order
      * @return returns whether the attempt at the ingredient was successful
      */
-    public boolean attemptStep(String ingredient) {
-        if(ingredient == null || ingredient.equals("") || !ingredient.equals(ingredients.get(step))) {
+    public boolean attemptStep(String ingredient)
+    {
+        // Prevent accessing an ingredient after the order is complete
+        if (isComplete())
+        {
+            return false;
+        }
+
+        if (ingredient == null || ingredient.equals("")
+            || !ingredient.equals(ingredients.get(step)))
+        {
             resetProgress();
             return false;
         }
-        if(step >= ingredients.size()) {
-            return false;
-        }
+
         step++;
         return true;
     }
