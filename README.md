@@ -68,6 +68,5 @@ Attribution:
 | Player | Caleb | Wrote |
 | Customer | Caleb | Wrote |
 | Controller | Sydney | Wrote & GenAI-assisted|
-
-| README.md | Caleb | Contributed |
+| README.md | Caleb, Sydney | Contributed |
 
