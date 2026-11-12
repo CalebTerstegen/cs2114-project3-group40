@@ -56,11 +56,9 @@ Recipe completion: Test a fully correct ingredient sequence, a wrong step that r
 Payout feature: Test the base payout, a fast/correct completion bonus, reduced or no bonus after mistakes, and invalid payout inputs such as negative values.
 Integration: Test that a completed order updates money and advances the queue; a timeout gives a strike; and three strikes end the game.
 
-
+GenAI Note:
+GenAI was used as a supporting tool throughout the development of this project, primarily to help with understanding Java concepts and implementing the Controller and Main components. Provided guidance on connecting the Controller to the model and handling customer input. Also suggested a reset timer method in the Controller class. 
 Who does what? Which team member owns each remaining item.
-
-
-
 Attribution:
 
 | File | Who | How |
