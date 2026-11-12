@@ -35,6 +35,7 @@ Next steps:
 • What is left to finish the MVP? 
 The remaining features and fixes, in the order you will do them.
 
+Update and rerun the JUnit tests to match the implemented API; fix any remaining failures.
 
 
 
@@ -52,10 +53,13 @@ For the stretch goals we will attempt to modify the money system such that playi
 
 
 • What new tests will you need? The methods and bad-input cases the added work must cover.
+Timer/controller behavior: Test time remaining during normal play, expiration at the boundary, and invalid elapsed-time inputs if that method accepts them.
+Recipe completion: Test a fully correct ingredient sequence, a wrong step that resets progress, and an attempt made after an order is already complete.
+Payout feature: Test the base payout, a fast/correct completion bonus, reduced or no bonus after mistakes, and invalid payout inputs such as negative values.
+Integration: Test that a completed order updates money and advances the queue; a timeout gives a strike; and three strikes end the game.
+
 
 Who does what? Which team member owns each remaining item.
-
-
 
 
 
@@ -70,5 +74,8 @@ Attribution:
 | Controller | Sydney | Wrote & GenAI-assisted|
 | Main | Muna | Wrote & GenAI-assisted |
 | README.md | Caleb, Sydney | Contributed |
-
+| CustomerTest | Noah | Wrote |
+| OrderTest | Noah | Wrote |
+| LineTest | Noah | Wrote |
+| PlayerTest | Noah | Wrote |
 
