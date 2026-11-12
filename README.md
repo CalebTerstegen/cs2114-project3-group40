@@ -26,17 +26,14 @@ We have figured out how to check whether steps are being correctly followed. Thi
 
 
 
-• What doesn't work yet? MVP features, bad-input cases, or tests that are missing or failing.
+• What doesn't work yet? 
 
-
-
-
-
-
+MVP features, bad-input cases, or tests that are missing or failing.
 
 Next steps:
 
-• What is left to finish the MVP? The remaining features and fixes, in the order you will do them.
+• What is left to finish the MVP? 
+The remaining features and fixes, in the order you will do them.
 
 
 
@@ -65,16 +62,12 @@ Who does what? Which team member owns each remaining item.
 Attribution:
 
 | File | Who | How |
-
 | --- | --- | --- |
-
 | Line | Caleb | Wrote |
-
 | Order | Caleb | Wrote |
-
 | Player | Caleb | Wrote |
-
 | Customer | Caleb | Wrote |
+| Controller | Sydney | Wrote & GenAI-assisted|
 
 | README.md | Caleb | Contributed |
 
