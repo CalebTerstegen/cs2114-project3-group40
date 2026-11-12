@@ -70,6 +70,9 @@ Attribution:
 | Customer | Caleb | Wrote |
 | Controller | Sydney | Wrote & GenAI-assisted|
 | Main | Muna | Wrote & GenAI-assisted |
+| View | Muna | Wrote & GenAI-assisted |
+| Controller View| Muna | Wrote & GenAI-assisted |
+| Controller View Test| Muna | Wrote & GenAI-assisted |
 | README.md | Caleb, Sydney | Contributed |
 | CustomerTest | Noah | Wrote |
 | OrderTest | Noah | Wrote |
