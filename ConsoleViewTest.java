@@ -111,7 +111,7 @@ public class ConsoleViewTest
     {
         ConsoleView view = viewWithInput("");
         view.showStatus(1, 5, 999);
-        assertTrue(output().contains("Time left: 0 seconds\""));
+        assertTrue(output().contains("Time left: 0 seconds"));
     }
  
     /**

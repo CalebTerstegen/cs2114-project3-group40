@@ -16,7 +16,7 @@ public class Main
         Player player = new Player();
         View view = new ConsoleView();
 
-        Controller controller = new Controller(line, player, view);
+        Controller controller = new Controller(line, player);
 
         ArrayList<String> latte = new ArrayList<String>(
             Arrays.asList("espresso", "milk", "foam"));
@@ -42,15 +42,18 @@ public class Main
     }
 
 
-    public static
-        void
-        runGame(Controller controller, Line line, Player player, View view)
+    public static void runGame(
+        Controller controller,
+        Line line,
+        Player player,
+        View view)
     {
         controller.startGame();
         long last = System.currentTimeMillis();
 
         while (!player.isGameOver() && !line.isEmpty())
         {
+            view.showOrder(line.peek());
             String input = view.readInput();
             long now = System.currentTimeMillis();
 
@@ -64,7 +67,9 @@ public class Main
             controller.handleInput(input);
         }
 
-        controller.endGame();
-
+        if (controller.isGameRunning())
+        {
+            controller.endGame();
+        }
     }
 }
