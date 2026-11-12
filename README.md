@@ -15,9 +15,7 @@ First the timing element was moved from the line class to the controller as it m
 
 
 • Did the model really stand alone? Was there anything you had to move across the model/view line to make it run, or anything in the model that still knows about the view?
-
-
-
+The model was designed to function independently of the view, with the Line, Customer, Order and Player classes responsible for managing the game's logic and data. The Controller handles the communication between the classes and UI. Although some responsibilities changed from our original spec, the model doesn't need the UI to manage customer orders, queue operations or player statistics. 
 
 
 • What happened to your unknowns? Of the things you listed in your scope as not knowing how to do, which did you figure out, and which are still open?
@@ -28,7 +26,7 @@ We have figured out how to check whether steps are being correctly followed. Thi
 
 • What doesn't work yet? 
 
-MVP features, bad-input cases, or tests that are missing or failing.
+MVP features, bad-input cases, or tests that are missing or failing. Ingredient processing and customer timing still have to be integrated with the model. 
 
 Next steps:
 
