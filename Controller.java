@@ -10,6 +10,7 @@ public class Controller
     private Line line;
     private Player player;
     private boolean gameRunning;
+    private long remainingMs;
 
     /**
      * Creates new controller
@@ -44,6 +45,22 @@ public class Controller
 
 
     /**
+     * resets the timer for the current customer
+     */
+    private void resetTimer()
+    {
+        if (line.isEmpty())
+        {
+            remainingMs = 0;
+        }
+        else
+        {
+            remainingMs = line.peek().getTimeLimit() * 1000L;
+        }
+    }
+
+
+    /**
      * Player input
      * 
      * @param raw
@@ -68,28 +85,26 @@ public class Controller
         }
         String ingredient = raw.trim();
         Customer current = line.peek();
+        Order order = current.getOrder();
 
-        StepResult result = line.submitStep(ingredient);
+        boolean correct = order.attemptStep(ingredient);
 
-        switch (result)
+        if (!correct)
         {
-            case STEP_OK:
-                System.out.println("Correct ingredient!");
-                break;
+            System.out.println("Wrong ingredient! Progress reset.");
+        }
+        else if (order.isComplete())
+        {
+            player.addMoney(order.getCost());
+            line.dequeue();
 
-            case ORDER_COMPLETE:
-                player.addMoney(current.getOrder().getCost());
-                line.dequeue();
-                System.out.println("Order completed!");
-                break;
+            System.out.println("Order completed!");
 
-            case WRONG_STEP:
-                System.out.println("Wrong step! Try again.");
-                break;
-
-            default:
-                System.out.println("Unknown result.");
-                break;
+            resetTimer();
+        }
+        else
+        {
+            System.out.println("Correct ingredient!");
         }
 
         onModelChanged();
@@ -107,25 +122,37 @@ public class Controller
         if (elapsedMs < 0)
         {
             throw new IllegalArgumentException(
-                "Elapsed time can't be negative.");
+                "Elapsed time cannot be negative.");
         }
+
         if (!gameRunning || line.isEmpty())
         {
             return;
         }
-        boolean timedOut = line.tick(elapsedMs);
 
-        if (timedOut)
+        long elapsed = elapsedMs;
+
+        while (gameRunning && !line.isEmpty() && elapsed >= remainingMs)
         {
+            elapsed -= remainingMs;
+
+            line.dequeue();
             player.addStrike();
-            System.out.println(
-                "Customer ran out of time! Strike added.");
+
+            System.out.println("Customer ran out of time! Strike added.");
 
             if (player.isGameOver())
             {
                 endGame();
                 return;
             }
+
+            resetTimer();
+        }
+
+        if (!line.isEmpty())
+        {
+            remainingMs -= elapsed;
         }
 
         onModelChanged();
@@ -141,6 +168,7 @@ public class Controller
         {
             return;
         }
+
         System.out.println("Strikes: " + player.getStrikes());
         System.out.println("Money: " + player.getMoney());
 
@@ -151,17 +179,27 @@ public class Controller
         else
         {
             Customer current = line.peek();
+
             System.out.println("Current customer: " + current.getName());
+            System.out.println("Order: " + current.getOrder().getName());
+            System.out.println(
+                "Time remaining: " + ((remainingMs + 999) / 1000) + " seconds");
         }
     }
 
 
     /**
-     * Ends game
+     * ends game 
      */
     public void endGame()
     {
+        if (!gameRunning)
+        {
+            return;
+        }
+
         gameRunning = false;
+
         System.out.println("Game Over!");
         System.out.println("Final Amount: " + player.getMoney());
     }
@@ -175,5 +213,16 @@ public class Controller
     public boolean isGameRunning()
     {
         return gameRunning;
+    }
+
+
+    /**
+     * Returns the remaining time
+     * 
+     * @return remaining milliseconds
+     */
+    public long getRemainingMs()
+    {
+        return remainingMs;
     }
 }
