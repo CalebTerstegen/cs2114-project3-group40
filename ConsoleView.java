@@ -42,5 +42,26 @@ public class ConsoleView
        System.out.print("> ");
        return scanner.nextLine();
    }
+   
+   /**
+    * shows the game instructions
+    */
+   public void showInstructions() {
+       System.out.println("How to play:");
+       System.out.println("- Each customer orders a drink.");
+       System.out.println("- Type the steps of the recipe, one at a time.");
+       System.out.println("- A wrong step or running out of time gives a strike.");
+       System.out.println("- 3 strikes and the game is over.");
+       System.out.println("- Serve orders correctly to earn money.");
+       System.out.println();
+   }
+   
+   /**
+    * shows the ingredients the player can use
+    */
+   public void showIngredients() {
+       System.out.println("Ingredients: espresso, milk, water, foam");
+       System.out.println();
+   }
 }
 

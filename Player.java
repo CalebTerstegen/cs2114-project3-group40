@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /**
  * player class
  */
@@ -15,6 +16,7 @@ public class Player
     public Player() {
         strikes = 0;
         money = 0;
+        observers = new ArrayList<Observer>();
     }
     //~Public  Methods ........................................................
     /**
@@ -40,6 +42,7 @@ public class Player
         if(!isGameOver()) {
             strikes++;
         }
+        notifyObservers();
     }
     
     /**
@@ -52,6 +55,7 @@ public class Player
             throw new IllegalArgumentException("Illegal argument");
         }
         money += add;
+        notifyObservers();
     }
     
     /**
@@ -66,6 +70,9 @@ public class Player
      * adds and observer
      */
     public void addObserver(Observer o) {
+        if (o == null) {
+            throw new IllegalArgumentException("Illegal argument");
+        }
         observers.add(o);
     }
     

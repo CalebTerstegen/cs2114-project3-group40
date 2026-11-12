@@ -15,7 +15,9 @@ public class Main
         Line line = new Line();
         Player player = new Player();
         View view = new ConsoleView();
-
+        view.showInstructions();
+        view.showIngredients();
+        
         Controller controller = new Controller(line, player);
 
         ArrayList<String> latte = new ArrayList<String>(
@@ -51,9 +53,13 @@ public class Main
         controller.startGame();
         long last = System.currentTimeMillis();
 
-        while (!player.isGameOver() && !line.isEmpty())
+        if (!line.isEmpty())
         {
             view.showOrder(line.peek());
+        }
+
+        while (!player.isGameOver() && !line.isEmpty())
+        {
             String input = view.readInput();
             long now = System.currentTimeMillis();
 

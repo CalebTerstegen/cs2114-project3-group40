@@ -1,4 +1,6 @@
 import java.util.NoSuchElementException;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 /**
  * line class
@@ -64,6 +66,7 @@ public class Line
      */
     public Line() {
         size = 0;
+        observers = new ArrayList<Observer>();
     }
 
     //~Public  Methods ........................................................
@@ -90,14 +93,20 @@ public class Line
         if(c == null) {
             throw new IllegalArgumentException("Illegal argument");
         }
+        Node<Customer> n = new Node<Customer>(c);
         if(isEmpty()) {
-            front = new Node<Customer>(c);
-            back = front;
-            return;
+            
+            front = n;
         }
-        back.setNext(new Node<Customer>(c));
-        back = back.next();
+        else {
+            back.setNext(n);
+        }
+        
+        back = n;
+        size++;
+        notifyObservers();
     }
+
     
     /**
      * removes a customer from the front
@@ -113,6 +122,8 @@ public class Line
         if(front == null) {
             back = null;
         }
+        size --;
+        notifyObservers();
         return out;
     }
     
@@ -131,6 +142,9 @@ public class Line
      * adds and observer
      */
     public void addObserver(Observer o) {
+        if (o == null) {
+            throw new IllegalArgumentException("Illegal argument");
+        }
         observers.add(o);
     }
     
@@ -138,8 +152,8 @@ public class Line
      * notifies the observers
      */
     private void notifyObservers() {
-        for(Observer o : observers) {
-            o.updateLine(front);
+        for (Observer o : observers) {
+            o.updateLine();
         }
     }
 

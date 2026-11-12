@@ -41,7 +41,9 @@ public class Controller
     {
         gameRunning = true;
         System.out.println("Welcome to Craze Coffee!");
+        resetTimer();
     }
+    
 
 
     /**
@@ -91,7 +93,18 @@ public class Controller
 
         if (!correct)
         {
-            System.out.println("Wrong ingredient! Progress reset.");
+            line.dequeue();
+            player.addStrike();
+
+            System.out.println("Wrong ingredient! Customer left. Strike added.");
+
+            if (player.isGameOver())
+            {
+                endGame();
+                return;
+            }
+
+            resetTimer();
         }
         else if (order.isComplete())
         {
@@ -131,6 +144,7 @@ public class Controller
         }
 
         long elapsed = elapsedMs;
+        boolean timedOut = false;
 
         while (gameRunning && !line.isEmpty() && elapsed >= remainingMs)
         {
@@ -138,6 +152,7 @@ public class Controller
 
             line.dequeue();
             player.addStrike();
+            timedOut = true;
 
             System.out.println("Customer ran out of time! Strike added.");
 
@@ -155,7 +170,10 @@ public class Controller
             remainingMs -= elapsed;
         }
 
-        onModelChanged();
+        if (timedOut)
+        {
+            onModelChanged();
+        }
     }
 
 
