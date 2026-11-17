@@ -146,23 +146,18 @@ public class Line
      * adds a new customer
      */
     public void newCustomer() {
-        String name = names[(int)Math.random()*9];
-        System.out.println("try");
-        switch(((int)Math.random()*3)) {
+        String name = names[(int)(Math.random()*10)];
+        switch((int)((Math.random()*3)+1)) {
             case 1:
                 enqueue(new Customer(name, latte, TIME_LIMIT));
-                System.out.println("succeed");
                 break;
             case 2:
                 enqueue(new Customer(name, americano, TIME_LIMIT));
-                System.out.println("succeed");
                 break;
             case 3:
                 enqueue(new Customer(name, redEye, TIME_LIMIT));
-                System.out.println("succeed");
                 break;
             default:
-                System.out.println("fail");
         }
     }
     

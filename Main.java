@@ -34,14 +34,6 @@ public class Main
                 "Tom",
                 new Order("Americano", americano, 3),
                 TIME_LIMIT));
-        line.enqueue(
-            new Customer("Ferb", new Order("Latte", latte, 5), TIME_LIMIT));
-        line.enqueue(
-            new Customer(
-                "Aaron",
-                new Order("Americano", americano, 3),
-                TIME_LIMIT));
-
         runGame(controller, line, player, view);
     }
 
@@ -63,7 +55,7 @@ public class Main
 
         while (!player.isGameOver() && !line.isEmpty())
         {
-            if(newCustomerTime-System.currentTimeMillis() >= 10000*(Math.random()+1)) {
+            if(System.currentTimeMillis()-newCustomerTime >= 10000*(Math.random()+1)) {
                 line.newCustomer();
                 System.out.println("New customer!");
                 newCustomerTime = System.currentTimeMillis();
