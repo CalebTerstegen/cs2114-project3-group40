@@ -109,10 +109,11 @@ public class Controller
         }
         else if (order.isComplete())
         {
-            player.addMoney(order.getCost()+((int)remainingMs/2000));
+            int tip = (int)(remainingMs/2000);
+            player.addMoney(order.getCost()+tip);
             line.dequeue();
 
-            System.out.println("Order completed! \n tip earned: "+(remainingMs/2000));
+            System.out.println("Order completed! \n tip earned: "+tip);
 
             resetTimer();
         }
