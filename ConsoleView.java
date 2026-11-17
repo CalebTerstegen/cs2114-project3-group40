@@ -60,7 +60,7 @@ public class ConsoleView
     * shows the ingredients the player can use
     */
    public void showIngredients() {
-       System.out.println("Ingredients: espresso, milk, water, foam");
+       System.out.println("Ingredients: espresso, coffee, milk, water, foam");
        System.out.println();
    }
 }

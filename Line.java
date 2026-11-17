@@ -1,6 +1,4 @@
-import java.util.NoSuchElementException;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * line class
@@ -59,6 +57,12 @@ public class Line
     private Node<Customer> back;
     private int size;
     private ArrayList<Observer> observers;
+    private static final int TIME_LIMIT = 30;
+    private final String[] names = {"Steve","Laura","Eric","Jeremy","Emily","Bob","Michael","Sophia","James","Brick"};
+    
+    private final Order latte = new Order("Latte", new ArrayList<String>(Arrays.asList("espresso", "milk", "foam")), 5);
+    private final Order americano = new Order("Americano", new ArrayList<String>(Arrays.asList("espresso", "water")), 3);
+    private final Order redEye = new Order("Red Eye", new ArrayList<String>(Arrays.asList("coffee", "espresso")), 4);
 
     //~ Constructors ..........................................................
     /**
@@ -136,6 +140,30 @@ public class Line
             throw new NoSuchElementException("Empty line");
         }
         return front.getData();
+    }
+    
+    /**
+     * adds a new customer
+     */
+    public void newCustomer() {
+        String name = names[(int)Math.random()*9];
+        System.out.println("try");
+        switch(((int)Math.random()*3)) {
+            case 1:
+                enqueue(new Customer(name, latte, TIME_LIMIT));
+                System.out.println("succeed");
+                break;
+            case 2:
+                enqueue(new Customer(name, americano, TIME_LIMIT));
+                System.out.println("succeed");
+                break;
+            case 3:
+                enqueue(new Customer(name, redEye, TIME_LIMIT));
+                System.out.println("succeed");
+                break;
+            default:
+                System.out.println("fail");
+        }
     }
     
     /**

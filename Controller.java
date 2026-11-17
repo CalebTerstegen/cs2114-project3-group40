@@ -11,6 +11,7 @@ public class Controller
     private Player player;
     private boolean gameRunning;
     private long remainingMs;
+    private int bonus;
 
     /**
      * Creates new controller
@@ -108,10 +109,10 @@ public class Controller
         }
         else if (order.isComplete())
         {
-            player.addMoney(order.getCost());
+            player.addMoney(order.getCost()+((int)remainingMs/2000));
             line.dequeue();
 
-            System.out.println("Order completed!");
+            System.out.println("Order completed! \n tip earned: "+(remainingMs/2000));
 
             resetTimer();
         }
@@ -145,7 +146,7 @@ public class Controller
 
         long elapsed = elapsedMs;
         boolean timedOut = false;
-
+        
         while (gameRunning && !line.isEmpty() && elapsed >= remainingMs)
         {
             elapsed -= remainingMs;

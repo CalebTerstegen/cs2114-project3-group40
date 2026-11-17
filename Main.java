@@ -19,11 +19,13 @@ public class Main
         view.showIngredients();
         
         Controller controller = new Controller(line, player);
-
+        
         ArrayList<String> latte = new ArrayList<String>(
             Arrays.asList("espresso", "milk", "foam"));
         ArrayList<String> americano = new ArrayList<String>(
             Arrays.asList("espresso", "water"));
+        ArrayList<String> redEye = new ArrayList<String>(
+            Arrays.asList("coffee", "espresso"));
         
         line.enqueue(
             new Customer("Sally", new Order("Latte", latte, 5), TIME_LIMIT));
@@ -51,6 +53,7 @@ public class Main
         View view)
     {
         controller.startGame();
+        long newCustomerTime = System.currentTimeMillis();
         long last = System.currentTimeMillis();
 
         if (!line.isEmpty())
@@ -60,9 +63,14 @@ public class Main
 
         while (!player.isGameOver() && !line.isEmpty())
         {
+            if(newCustomerTime-System.currentTimeMillis() >= 10000*(Math.random()+1)) {
+                line.newCustomer();
+                System.out.println("New customer!");
+                newCustomerTime = System.currentTimeMillis();
+            }
             String input = view.readInput();
             long now = System.currentTimeMillis();
-
+                
             controller.onTick(now - last);
             last = now;
 
