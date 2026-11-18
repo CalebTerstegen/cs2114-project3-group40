@@ -8,9 +8,13 @@ Reflection:
 
 • How did your design absorb the change? List the classes your feature actually touched. Compare that with the prediction in your D3 Next Steps: what matched, what surprised you?
 
+&#x09;A specific feature was not named in D3 however since the graphical UI represented the largest missing part it can be considered as the feature added. With the addition of this feature no other classes were actually touched. This is because of the model/view separation allowing for the graphical UI view to be added without needing changes to other classes.
+
 
 
 • Did the change cross the model/view line?
+
+The change did not cross the model/view line since as described before with our model/view separation the graphical UI can be just added as a view. Then with it added as a view it can properly serve its function without touching any other classes. 
 
 
 
@@ -33,6 +37,8 @@ Reflection:
 Next Steps:
 
 • What is left for the final build? Remaining features and fixes, in order.
+
+&#x09;First the wrong ingredient system needs to be reworked to what was planned where getting it wrong reduces the tip bonus rather than giving a strike. Next some of the functionality in main and controller needs to be moved to the model to make it more independent. 
 
 
 
@@ -61,7 +67,7 @@ Attribution:
 |View|Muna|Wrote \& GenAI-assisted|
 |Controller View|Muna|Wrote \& GenAI-assisted|
 |Controller View Test|Muna|Wrote \& GenAI-assisted|
-|README.md|Caleb, Sydney|Contributed|
+|README.md|Caleb|Contributed|
 |CustomerTest|Noah|Wrote|
 |OrderTest|Noah|Wrote|
 |LineTest|Noah|Wrote|
