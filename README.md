@@ -32,14 +32,15 @@ No. The tip feature was implemented in the controller
 
 • If a change rippled through layers it shouldn't have, where and why?
 
-N/A
+No changes rippled through any layers
 
 • What changed from your D3 plan? Features, signatures, validation, or tests that differ from what you said you'd do, and why.
 
 The main thing that changed was the addtion of the graphical UI
 
 • What doesn't work yet? MVP features, bad-input cases, or tests that are missing or failing.
-N/A
+
+Everything we needed to work functions but we want to just focus on adding more of our stretch goals.
 
 
 Next Steps:
