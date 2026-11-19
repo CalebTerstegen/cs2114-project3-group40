@@ -75,7 +75,8 @@ Attribution:
 |View|Muna|Wrote \& GenAI-assisted|
 |Controller View|Muna|Wrote \& GenAI-assisted|
 |Controller View Test|Muna|Wrote \& GenAI-assisted|
-|README.md|Caleb|Contributed| Muna |Contributed \& GenAI-assisted|
+|README.md|Caleb|Contributed|
+|README.md| Muna |Contributed \& GenAI-assisted|
 |CustomerTest|Noah|Wrote|
 |OrderTest|Noah|Wrote|
 |LineTest|Noah|Wrote|
