@@ -1,169 +1,133 @@
 /**
- * // -------------------------------------------------------------------------
- * /** Controller for the Craze Coffee connects the customer line and player
- * 
- * @author sydneyyang
- * @version Nov 11, 2026
+ * Coordinates the player, customer line, timing, and presentation.
+ * Order validates recipe steps; Line remains only a FIFO customer queue.
  */
 public class Controller
 {
-    private Line line;
-    private Player player;
+    private final Line line;
+    private final Player player;
+    private final View view;
     private boolean gameRunning;
     private long remainingMs;
-    private int bonus;
 
     /**
-     * Creates new controller
-     * 
-     * @param line
-     *            the customer line
-     * @param player
-     *            new player
+     * Keeps the older constructor working for the console version and tests.
      */
     public Controller(Line line, Player player)
     {
-        if (line == null || player == null)
-        {
-            throw new IllegalArgumentException(
-                "Line and Player can't be null.");
+        this(line, player, new ConsoleView());
+    }
 
+    public Controller(Line line, Player player, View view)
+    {
+        if (line == null || player == null || view == null)
+        {
+            throw new IllegalArgumentException("Line, Player, and View cannot be null");
         }
+
         this.line = line;
         this.player = player;
+        this.view = view;
         gameRunning = false;
+        remainingMs = 0;
     }
 
-
-    /**
-     * starts game
-     */
+    /** Begins a shift and displays the first customer's order. */
     public void startGame()
     {
+        if (gameRunning)
+        {
+            return;
+        }
         gameRunning = true;
-        System.out.println("Welcome to Craze Coffee!");
         resetTimer();
+        view.showMessage("Welcome to Crazed Coffee!");
+        onModelChanged();
     }
-    
 
-
-    /**
-     * resets the timer for the current customer
-     */
     private void resetTimer()
     {
-        if (line.isEmpty())
-        {
-            remainingMs = 0;
-        }
-        else
-        {
-            remainingMs = line.peek().getTimeLimit() * 1000L;
-        }
+        remainingMs = line.isEmpty() ? 0 : line.peek().getTimeLimit() * 1000L;
     }
 
-
-    /**
-     * Player input
-     * 
-     * @param raw
-     *            the ingredient entered
-     */
+    /** Processes a selected ingredient (or typed console input). */
     public void handleInput(String raw)
     {
         if (!gameRunning)
         {
-            System.out.print("Game is not running.");
+            view.showMessage("Game is not running.");
             return;
         }
         if (raw == null || raw.trim().isEmpty())
         {
-            System.out.println("Not a valid response. Try again!");
+            view.showMessage("Not a valid response. Try again!");
             return;
         }
         if (line.isEmpty())
         {
-            System.out.println("No customers in line");
+            endGame();
             return;
         }
-        String ingredient = raw.trim();
+
         Customer current = line.peek();
         Order order = current.getOrder();
-
-        boolean correct = order.attemptStep(ingredient);
+        boolean correct = order.attemptStep(raw.trim().toLowerCase());
 
         if (!correct)
         {
+            // Retains the current team's rule: an incorrect step loses a customer.
             line.dequeue();
             player.addStrike();
-
-            System.out.println("Wrong ingredient! Customer left. Strike added.");
-
+            view.showMessage("Wrong ingredient! Customer left. Strike added.");
             if (player.isGameOver())
             {
                 endGame();
                 return;
             }
-
             resetTimer();
         }
         else if (order.isComplete())
         {
-            int tip = (int)(remainingMs/2000);
-            player.addMoney(order.getCost()+tip);
+            int tip = (int)(remainingMs / 2000L);
+            player.addMoney(order.getCost() + tip);
             line.dequeue();
-
-            System.out.println("Order completed! \n tip earned: "+tip);
-
+            view.showMessage("Order completed! Tip earned: $" + tip);
             resetTimer();
         }
         else
         {
-            System.out.println("Correct ingredient!");
+            view.showMessage("Correct ingredient!");
         }
 
         onModelChanged();
     }
 
-
-    /**
-     * updates customer timer
-     * 
-     * @param elapsedMs
-     *            elapsed time in milliseconds
-     */
+    /** Advances the current customer's countdown using actual elapsed time. */
     public void onTick(long elapsedMs)
     {
         if (elapsedMs < 0)
         {
-            throw new IllegalArgumentException(
-                "Elapsed time cannot be negative.");
+            throw new IllegalArgumentException("Elapsed time cannot be negative");
         }
-
         if (!gameRunning || line.isEmpty())
         {
             return;
         }
 
         long elapsed = elapsedMs;
-        boolean timedOut = false;
-        
+        boolean customerTimedOut = false;
         while (gameRunning && !line.isEmpty() && elapsed >= remainingMs)
         {
             elapsed -= remainingMs;
-
             line.dequeue();
             player.addStrike();
-            timedOut = true;
-
-            System.out.println("Customer ran out of time! Strike added.");
-
+            customerTimedOut = true;
+            view.showMessage("Customer ran out of time! Strike added.");
             if (player.isGameOver())
             {
                 endGame();
                 return;
             }
-
             resetTimer();
         }
 
@@ -171,76 +135,52 @@ public class Controller
         {
             remainingMs -= elapsed;
         }
-
-        if (timedOut)
+        if (customerTimedOut)
         {
             onModelChanged();
         }
+        else
+        {
+            // The countdown needs repainting even if no customer timed out.
+            view.showStatus(player.getStrikes(), player.getMoney(), remainingMs);
+        }
     }
 
-
-    /**
-     * dislays the current game state
-     */
+    /** Refreshes all visible model information. */
     public void onModelChanged()
     {
         if (!gameRunning)
         {
             return;
         }
-
-        System.out.println("Strikes: " + player.getStrikes());
-        System.out.println("Money: " + player.getMoney());
-
+        view.showStatus(player.getStrikes(), player.getMoney(), remainingMs);
         if (line.isEmpty())
         {
-            System.out.println("No customers waiting.");
+            endGame();
         }
         else
         {
-            Customer current = line.peek();
-
-            System.out.println("Current customer: " + current.getName());
-            System.out.println("Order: " + current.getOrder().getName());
-            System.out.println(
-                "Time remaining: " + ((remainingMs + 999) / 1000) + " seconds");
+            view.showOrder(line.peek());
         }
     }
 
-
-    /**
-     * ends game 
-     */
+    /** Ends the game once and tells the view to show the final screen. */
     public void endGame()
     {
         if (!gameRunning)
         {
             return;
         }
-
         gameRunning = false;
-
-        System.out.println("Game Over!");
-        System.out.println("Final Amount: " + player.getMoney());
+        view.showStatus(player.getStrikes(), player.getMoney(), remainingMs);
+        view.showGameOver();
     }
 
-
-    /**
-     * Returns whether the game is running
-     * 
-     * @return true if running
-     */
     public boolean isGameRunning()
     {
         return gameRunning;
     }
 
-
-    /**
-     * Returns the remaining time
-     * 
-     * @return remaining milliseconds
-     */
     public long getRemainingMs()
     {
         return remainingMs;

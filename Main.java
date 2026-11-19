@@ -1,81 +1,47 @@
+import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+/** Starts the graphical version of Craze Coffee. */
 public class Main
 {
-    // ~ Fields ................................................................
-
-    // ~ Constructors ..........................................................
-
     private static final int TIME_LIMIT = 30;
-    // ~Public Methods ........................................................
 
-    public static void main(String[] args)
+    public  static void main(String[] args)
     {
+        EventQueue.invokeLater(() -> {
+            Line line = new Line();
+            Player player = new Player();
+            GraphicalUI view = new GraphicalUI();
+            Controller controller = new Controller(line, player, view);
+            view.setController(controller);
 
-        Line line = new Line();
-        Player player = new Player();
-        View view = new ConsoleView();
-        view.showInstructions();
-        view.showIngredients();
-        
-        Controller controller = new Controller(line, player);
-        
+            populateLine(line);
+            view.showInstructions();
+            view.showIngredients();
+            view.setVisible(true);
+        });
+    }
+
+    /** Supplies the starting customers and recipes for either interface. */
+    public static void populateLine(Line line)
+    {
+        if (line == null)
+        {
+            throw new IllegalArgumentException("Line cannot be null");
+        }
+
         ArrayList<String> latte = new ArrayList<String>(
             Arrays.asList("espresso", "milk", "foam"));
         ArrayList<String> americano = new ArrayList<String>(
             Arrays.asList("espresso", "water"));
         ArrayList<String> redEye = new ArrayList<String>(
             Arrays.asList("coffee", "espresso"));
-        
-        line.enqueue(
-            new Customer("Sally", new Order("Latte", latte, 5), TIME_LIMIT));
-        line.enqueue(
-            new Customer(
-                "Tom",
-                new Order("Americano", americano, 3),
-                TIME_LIMIT));
-        runGame(controller, line, player, view);
-    }
 
-
-    public static void runGame(
-        Controller controller,
-        Line line,
-        Player player,
-        View view)
-    {
-        controller.startGame();
-        long newCustomerTime = System.currentTimeMillis();
-        long last = System.currentTimeMillis();
-
-        if (!line.isEmpty())
-        {
-            view.showOrder(line.peek());
-        }
-
-        while (!player.isGameOver() && !line.isEmpty())
-        {
-            if(System.currentTimeMillis()-newCustomerTime >= 10000*(Math.random()+1)) {
-                line.newCustomer();
-                System.out.println("New customer!");
-                newCustomerTime = System.currentTimeMillis();
-            }
-            String input = view.readInput();
-            long now = System.currentTimeMillis();
-                
-            controller.onTick(now - last);
-            last = now;
-
-            if (player.isGameOver() || line.isEmpty())
-            {
-                break;
-            }
-            controller.handleInput(input);
-        }
-
-        if (controller.isGameRunning())
-        {
-            controller.endGame();
-        }
+        // Four customers make it possible to test a three-strike game over.
+        line.enqueue(new Customer("Sally", new Order("Latte", latte, 5), TIME_LIMIT));
+        line.enqueue(new Customer("Tom", new Order("Americano", americano, 3), TIME_LIMIT));
+        line.enqueue(new Customer("Ferb", new Order("Red Eye", redEye, 4), TIME_LIMIT));
+        line.enqueue(new Customer("Aaron", new Order("Latte", latte, 5), TIME_LIMIT));
     }
 }

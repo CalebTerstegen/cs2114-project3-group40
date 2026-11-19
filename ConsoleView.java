@@ -1,67 +1,59 @@
 import java.util.Scanner;
 
-public class ConsoleView
-    implements View
+/** Console implementation of the same presentation interface as GraphicalUI. */
+public class ConsoleView implements View
 {
-    //~ Fields ................................................................
-    private Scanner scanner;
-    //~ Constructors ..........................................................
+    private final Scanner scanner;
 
-    //~Public  Methods ........................................................
+    public ConsoleView()
+    {
+        scanner = new Scanner(System.in);
+    }
 
-   public ConsoleView() {
-       scanner = new Scanner(System.in);
-       
-   }
-   
-   public void showOrder(Customer custormer) {
-       System.out.println();
-       System.out.println("Customer: " + custormer.getName());
-       System.out.println("Order: " + custormer.getOrder().getName());
-   }
-   
-   public void showStatus(int strikes, int money, long msRemaining){
-       System.out.println("Strikes: " + strikes + "/3   Money: $" + money
-           + "   Time left: " + (msRemaining / 1000) + " seconds");
-       
-   }
-   
-   public void showMessage(String msg)
-   {
-       System.out.println(msg);
-   }
-   
-   public void showGameOver()
-   {
-       System.out.println();
-       System.out.println("GAME OVER");
-   }
-   
-   public String readInput()
-   {
-       System.out.print("> ");
-       return scanner.nextLine();
-   }
-   
-   /**
-    * shows the game instructions
-    */
-   public void showInstructions() {
-       System.out.println("How to play:");
-       System.out.println("- Each customer orders a drink.");
-       System.out.println("- Type the steps of the recipe, one at a time.");
-       System.out.println("- A wrong step or running out of time gives a strike.");
-       System.out.println("- 3 strikes and the game is over.");
-       System.out.println("- Serve orders correctly to earn money.");
-       System.out.println();
-   }
-   
-   /**
-    * shows the ingredients the player can use
-    */
-   public void showIngredients() {
-       System.out.println("Ingredients: espresso, coffee, milk, water, foam");
-       System.out.println();
-   }
+    @Override
+    public void showOrder(Customer customer)
+    {
+        System.out.println();
+        System.out.println("Customer: " + customer.getName());
+        System.out.println("Order: " + customer.getOrder().getName());
+    }
+
+    @Override
+    public void showStatus(int strikes, int money, long msRemaining)
+    {
+        System.out.println("Strikes: " + strikes + "/3   Money: $" + money
+            + "   Time left: " + ((Math.max(0, msRemaining) + 999) / 1000) + " seconds");
+    }
+
+    @Override
+    public void showInstructions()
+    {
+        System.out.println("Welcome Barista! Serve drinks and beat the clock.");
+        System.out.println("Three strikes and your shift is over!");
+    }
+
+    @Override
+    public void showIngredients()
+    {
+        System.out.println("Available ingredients: espresso, milk, foam, water, coffee");
+    }
+
+    @Override
+    public void showMessage(String message)
+    {
+        System.out.println(message);
+    }
+
+    @Override
+    public void showGameOver()
+    {
+        System.out.println("GAME OVER");
+    }
+
+    @Override
+    public String readInput()
+    {
+        System.out.print("> ");
+        return scanner.nextLine();
+    }
 }
-
