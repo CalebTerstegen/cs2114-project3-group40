@@ -16,13 +16,13 @@ Reflection:
 
 • How did your design absorb the change? List the classes your feature actually touched. Compare that with the prediction in your D3 Next Steps: what matched, what surprised you?
 
-&#x09;A specific feature was not named in D3 however since the graphical UI represented the largest missing part it can be considered as the feature added. With the addition of this feature no other classes were actually touched. This is because of the model/view separation allowing for the graphical UI view to be added without needing changes to other classes.
+&#x09;A specific feature was not named in D3 however a feature that was added was the customers giving a tip based on how fast you completed the order. This feature only touched the controller class. 
 
 
 
 • Did the change cross the model/view line?
 
-The change did not cross the model/view line since as described before with our model/view separation the graphical UI can be just added as a view. Then with it added as a view it can properly serve its function without touching any other classes.
+The change did not cross the model/view line since as described before it was implemented only through the controller class. As a result it does not extend across the model/view line as it lies in neither. However, it should probably be moved later to model as this would be model logic.
 
 
 
