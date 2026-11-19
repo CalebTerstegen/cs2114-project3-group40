@@ -27,19 +27,19 @@ The change did not cross the model/view line since as described before it was im
 
 
 • Did the view have to learn anything new about the model?
-
+No. The tip feature was implemented in the controller
 
 
 • If a change rippled through layers it shouldn't have, where and why?
 
-
+N/A
 
 • What changed from your D3 plan? Features, signatures, validation, or tests that differ from what you said you'd do, and why.
 
-
+The main thing that changed was the addtion of the graphical UI
 
 • What doesn't work yet? MVP features, bad-input cases, or tests that are missing or failing.
-
+N/A
 
 
 Next Steps:
@@ -52,11 +52,11 @@ Next Steps:
 
 • Which stretch goals are you committing to, and which are you dropping?
 
-
+We still want to implement the mini game idea, but the main stretch goal we wanted to implement was the graphical UI
 
 • What will your 3-minute demo show? The path you'll walk through, including the new feature.
 
-
+We will show the how the graphical UI and how the game transformed from being a game played from the console to its own application
 
 • Who does what? Which team member owns each remaining item.
 
