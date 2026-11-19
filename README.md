@@ -4,6 +4,14 @@ Small game where you serve customers as a barista.
 
 
 
+How to run:
+
+1. Download project
+2. In eclipse open projects from file system and select download
+3. Click on main and run as java application
+
+
+
 Reflection:
 
 • How did your design absorb the change? List the classes your feature actually touched. Compare that with the prediction in your D3 Next Steps: what matched, what surprised you?
@@ -14,7 +22,7 @@ Reflection:
 
 • Did the change cross the model/view line?
 
-The change did not cross the model/view line since as described before with our model/view separation the graphical UI can be just added as a view. Then with it added as a view it can properly serve its function without touching any other classes. 
+The change did not cross the model/view line since as described before with our model/view separation the graphical UI can be just added as a view. Then with it added as a view it can properly serve its function without touching any other classes.
 
 
 
@@ -38,7 +46,7 @@ Next Steps:
 
 • What is left for the final build? Remaining features and fixes, in order.
 
-&#x09;First the wrong ingredient system needs to be reworked to what was planned where getting it wrong reduces the tip bonus rather than giving a strike. Next some of the functionality in main and controller needs to be moved to the model to make it more independent. 
+&#x09;First the wrong ingredient system needs to be reworked to what was planned where getting it wrong reduces the tip bonus rather than giving a strike. Next some of the functionality in main and controller needs to be moved to the model to make it more independent.
 
 
 
